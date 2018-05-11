@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="MyStep">
+        <attr name="outerColor" format="color"/>
+        <attr name="innerColor" format="color"/>
+        <attr name="broderWidth" format="dimension"/>
+        <attr name="stepTextColor" format="color"/>
+        <attr name="stepTextSize" format="dimension"/>
+        <attr name="stepMax" format="integer"/>
+        <attr name="stepCurrent" format="integer"/>
+    </declare-styleable>
+</resources>
