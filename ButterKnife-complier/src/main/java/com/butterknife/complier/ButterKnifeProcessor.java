@@ -2,6 +2,7 @@ package com.butterknife.complier;
 
 
 import com.butterknife.annotation.BindView;
+import com.butterknife.annotation.OnClick;
 import com.google.auto.service.AutoService;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.JavaFile;
@@ -60,6 +61,7 @@ public class ButterKnifeProcessor extends AbstractProcessor{
     private Set<Class<? extends Annotation>> getAnnotations(){
         Set<Class<? extends Annotation>> annotations = new LinkedHashSet<>();
         annotations.add(BindView.class);
+        annotations.add(OnClick.class);
         return annotations;
     }
 
@@ -71,7 +73,7 @@ public class ButterKnifeProcessor extends AbstractProcessor{
 //        System.out.println("---------------->");
 //        System.out.println("---------------->");
         //有注解就会进来
-        //解析elements，使activity与属性集合一一对应
+        //.，使activity与属性集合一一对应
         Set<? extends Element> elements = roundEnvironment.getElementsAnnotatedWith(BindView.class);
         Map<Element,List<Element>> elementMap = new LinkedHashMap<>();
         for (Element element : elements) {
@@ -96,6 +98,7 @@ public class ButterKnifeProcessor extends AbstractProcessor{
             String activityClassNameStr = enclosingElement.getSimpleName().toString();
             ClassName activityClassName = ClassName.bestGuess(activityClassNameStr);
             ClassName unbinderClassName = ClassName.get("com.butterknife","Unbinder");
+
             TypeSpec.Builder classBuilder = TypeSpec.classBuilder(activityClassNameStr+"_ViewBinding")
                     .addModifiers(Modifier.FINAL,Modifier.PUBLIC)
                     .addSuperinterface(unbinderClassName)
@@ -113,7 +116,8 @@ public class ButterKnifeProcessor extends AbstractProcessor{
 
             //添加构造函数
             MethodSpec.Builder constructMethod = MethodSpec.constructorBuilder()
-                    .addParameter(activityClassName,"target");
+                    .addParameter(activityClassName,"target")
+                    .addModifiers(Modifier.PUBLIC);
 
             //添加代码this.target = target;
             constructMethod.addStatement("this.target = target");

@@ -2,6 +2,7 @@ package com.yto.zz.fristdemo;
 
 import android.content.Intent;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,7 +16,11 @@ import com.yto.zz.fristdemo.aop.NetCheck;
 import com.yto.zz.fristdemo.eventbus.EventBus;
 import com.yto.zz.fristdemo.eventbus.Subscribe;
 import com.yto.zz.fristdemo.eventbus.ThreadMode;
+import com.yto.zz.fristdemo.rxjava.Observable;
+import com.yto.zz.fristdemo.rxjava.Observer;
+import com.yto.zz.fristdemo.testdagger.module.HttpActivity;
 
+import java.lang.annotation.Target;
 import java.lang.reflect.Method;
 
 public class MainActivity extends AppCompatActivity {
@@ -32,6 +37,29 @@ public class MainActivity extends AppCompatActivity {
         unbinder = ButterKnife.bind(this);
         EventBus.getDefault().register(this);
         textView.setText("jiazaile");
+        Observable.just("hello")
+                .subscribe(new Observer<String>() {
+                    @Override
+                    public void onSubscribe() {
+                        Log.e("TAG","onSubscribe");
+                    }
+
+                    @Override
+                    public void onNext(@NonNull String s) {
+                        Log.e("TAG","onNext:"+s);
+
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable t) {
+                        Log.e("TAG","onError");
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Log.e("TAG","onComplete");
+                    }
+                });
     }
 
 
@@ -39,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
     @NetCheck
     public void click(View view){
-        Intent intent = new Intent(this,TestActivity.class);
+        Intent intent = new Intent(this,HttpActivity.class);
         startActivity(intent);
 
     }
