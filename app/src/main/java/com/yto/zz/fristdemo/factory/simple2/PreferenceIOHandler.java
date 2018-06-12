@@ -1,36 +1,34 @@
-package com.yto.zz.fristdemo.factory;
-
-import android.util.LruCache;
+package com.yto.zz.fristdemo.factory.simple2;
 
 /**
  * Created by zz on 2018/6/11.
  */
 
-public class MemoryIOHandler implements IOHandler{
-    LruCache<String,Object> mCache = new LruCache<>(10*1024*1024);
+public class PreferenceIOHandler implements IOHandler {
+    PreferenceUtil preferenceUtil = PreferenceUtil.getInstance();
     @Override
     public void save(String key, String value) {
-        mCache.put(key,value);
+        preferenceUtil.putString(key, value);
     }
 
     @Override
     public void save(String key, int value) {
-
+        preferenceUtil.putInt(key, value);
     }
 
     @Override
-    public void save(String key, double value) {
-
+    public void save(String key, float value) {
+        preferenceUtil.putFloat(key, value);
     }
 
     @Override
     public void save(String key, boolean value) {
-
+        preferenceUtil.putBool(key, value);
     }
 
     @Override
     public void save(String key, long value) {
-
+        preferenceUtil.putLong(key, value);
     }
 
     @Override
@@ -40,27 +38,27 @@ public class MemoryIOHandler implements IOHandler{
 
     @Override
     public String getString(String key, String value) {
-        return (String) mCache.get(key);
+        return preferenceUtil.getString(key);
     }
 
     @Override
     public int getInt(String key, int value) {
-        return 0;
+        return preferenceUtil.getInt(key,value);
     }
 
     @Override
-    public double getDouble(String key, double value) {
-        return 0;
+    public float getFloat(String key, float value) {
+        return preferenceUtil.getFloat(key, value);
     }
 
     @Override
     public boolean getBoolean(String key, boolean value) {
-        return false;
+        return preferenceUtil.getBool(key, value);
     }
 
     @Override
     public long getLong(String key, long value) {
-        return 0;
+        return preferenceUtil.getLong(key,value);
     }
 
     @Override

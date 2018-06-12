@@ -1,9 +1,8 @@
-package com.yto.zz.fristdemo.factory;
+package com.yto.zz.fristdemo.factory.simple2;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.preference.PreferenceManager;
 
 public class PreferenceUtil {
 	private static volatile PreferenceUtil instance;
@@ -28,9 +27,9 @@ public class PreferenceUtil {
 		pref = context.getApplicationContext().getSharedPreferences("cache",Context.MODE_PRIVATE);
 	}
 
-	public PreferenceUtil(Context ctx) {
-		pref = PreferenceManager.getDefaultSharedPreferences(ctx);
-	}
+//	public PreferenceUtil(Context ctx) {
+//		pref = PreferenceManager.getDefaultSharedPreferences(ctx);
+//	}
 
 	public String getString(String key) {
 		return pref.getString(key, null);
@@ -62,6 +61,7 @@ public class PreferenceUtil {
 	public float getFloat(String key, float defVal) {
 		return pref.getFloat(key, defVal);
 	}
+
 
 	public void putFloat(String key, float val) {
 		pref.edit().putFloat(key, val).commit();

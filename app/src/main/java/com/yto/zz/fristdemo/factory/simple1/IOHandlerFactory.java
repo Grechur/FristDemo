@@ -1,4 +1,4 @@
-package com.yto.zz.fristdemo.factory;
+package com.yto.zz.fristdemo.factory.simple1;
 
 /**
  * Created by zz on 2018/6/11.
@@ -6,7 +6,7 @@ package com.yto.zz.fristdemo.factory;
 
 public class IOHandlerFactory {
     public enum IOType{
-        PREFERENCE,MEMORY
+        PREFERENCE,MEMORY,DISK
     }
     public static IOHandler createIOHandler(IOType ioType){
         switch (ioType){
@@ -14,6 +14,8 @@ public class IOHandlerFactory {
                 return new PreferenceIOHandler();
             case MEMORY:
                 return new MemoryIOHandler();
+            case DISK:
+                return new DiskIOHandler();
         }
         return null;
     }

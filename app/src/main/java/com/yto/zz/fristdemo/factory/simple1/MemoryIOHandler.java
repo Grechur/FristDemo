@@ -1,70 +1,72 @@
-package com.yto.zz.fristdemo.factory;
+package com.yto.zz.fristdemo.factory.simple1;
 
-import android.content.SharedPreferences;
+import android.util.LruCache;
 
 /**
  * Created by zz on 2018/6/11.
  */
 
-public class PreferenceIOHandler implements IOHandler{
-    PreferenceUtil preferenceUtil = PreferenceUtil.getInstance();
+public class MemoryIOHandler implements IOHandler{
+    LruCache<String,Object> mCache = new LruCache<>(10*1024*1024);
     @Override
     public void save(String key, String value) {
-        preferenceUtil.putString(key, value);
+        mCache.put(key,value);
     }
 
     @Override
     public void save(String key, int value) {
-
+        mCache.put(key,value);
     }
 
     @Override
-    public void save(String key, double value) {
-
+    public void save(String key, float value) {
+        mCache.put(key,value);
     }
 
     @Override
     public void save(String key, boolean value) {
-
+        mCache.put(key,value);
     }
 
     @Override
     public void save(String key, long value) {
-
+        mCache.put(key,value);
     }
 
     @Override
     public void save(String key, Object value) {
-
+        mCache.put(key,value);
     }
 
     @Override
     public String getString(String key, String value) {
-        return preferenceUtil.getString(key);
+        return (String) mCache.get(key);
     }
 
     @Override
     public int getInt(String key, int value) {
-        return 0;
+        return (int) mCache.get(key);
     }
 
     @Override
-    public double getDouble(String key, double value) {
-        return 0;
+    public float getFloat(String key, float value) {
+        return (float) mCache.get(key);
     }
 
     @Override
     public boolean getBoolean(String key, boolean value) {
-        return false;
+        return (boolean) mCache.get(key);
     }
 
     @Override
     public long getLong(String key, long value) {
-        return 0;
+        return (long) mCache.get(key);
     }
 
     @Override
     public Object getObject(String key, Object value) {
-        return null;
+        return mCache.get(key);
     }
+
+
 }
