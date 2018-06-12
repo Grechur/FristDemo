@@ -28,12 +28,12 @@ public class SectionAspect {
     /**
      * 找到处理的切点 * *(..)处理所有方法
      */
-    @Pointcut("execution(com.yto.zz.fristdemo.aop.NetCheck * *(..))")
+    @Pointcut("execution(@com.yto.zz.fristdemo.aop.NetCheck * *(..))")
     public void checkNetBehavior(){
 
     }
 
-    @Around("checkNetBehavior")
+    @Around("checkNetBehavior()")
     public Object checkNet(ProceedingJoinPoint joinPoint) throws Throwable{
         Log.e(TAG,"checkNet");
         Signature signature = joinPoint.getSignature();
